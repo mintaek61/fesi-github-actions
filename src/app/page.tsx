@@ -1,137 +1,85 @@
-import Link from "next/link";
-import Image from "next/image";
-
-const products = [
-  {
-    id: 1,
-    name: "멋진 시계",
-    price: 19000,
-    imageUrl:
-      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D",
-    category: "액세서리",
-  },
-  {
-    id: 2,
-    name: "멋진 선글라스! 완전 멋진 시계인데 안사실 겁니까?",
-    price: 45000,
-    imageUrl:
-      "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D",
-    category: "액세서리",
-  },
-  {
-    id: 3,
-    name: "멋진 러닝화",
-    price: 55000,
-    imageUrl:
-      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHByb2R1Y3R8ZW58MHx8MHx8fDA%3D",
-    category: "신발",
-  },
-  {
-    id: 4,
-    name: "가죽 크로스백",
-    price: 75000,
-    imageUrl:
-      "https://images.unsplash.com/photo-1600857062241-98e5dba7f214?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8YmFnfGVufDB8fDB8fHww",
-    category: "가방",
-  },
-  {
-    id: 5,
-    name: "니트 스웨터",
-    price: 38000,
-    imageUrl:
-      "https://images.unsplash.com/photo-1581497396202-5645e76a3a8e?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c3dlYXRlcnxlbnwwfHwwfHx8MA%3D%3D",
-    category: "의류",
-  },
-  {
-    id: 6,
-    name: "셔츠",
-    price: 28000,
-    imageUrl:
-      "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8c2hpcnRzfGVufDB8fDB8fHww",
-    category: "의류",
-  },
-];
-
-export default function ProductGrid() {
+export default function Home() {
   return (
-    // mx-auto: 중앙 배치
-    // max-w-7xl: 최대 너비 제한
-    // px-4: 좌우 패딩
-    // py-8: 상하 패딩
-    <section className="mx-auto max-w-7xl px-4 py-8">
-      {/* mb-6: 아래 요소와의 간격 */}
-      {/* text-2xl: 텍스트 크기 */}
-      {/* font-bold: 폰트 굵기 */}
-      <h2 className="mb-6 text-2xl font-bold">인기 상품</h2>
+    // divide-y: 마지막 자식을 제외한 모든 자식 요소의 아래에 구분선 생성
+    // divide-gray-100: 구분선 색상
+    <ul role="list" className="divide-y divide-gray-100 p-2">
+      {/* flex, justify-between: 요소 배치 */}
+      {/* py-5: 요소 간격 및 위아래 여백 */}
+      <li className="flex justify-between py-5">
+        {/* 이미지 및 프로필 */}
+        {/* flex, gap-x-4: 요소 배치 */}
+        {/* min-w-0이 없으면 화면이 줄어들 때 텍스트가 가려진다. */}
+        <div className="flex min-w-0 gap-x-4">
+          <img
+            // size-12: 이미지 크기
+            // rounded-full: 이미지 모서리 둥글게
+            className="size-12 rounded-full"
+            src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+            alt=""
+          />
 
-      {/* 상품 필터링 부분 */}
-      {/* mb-6: 아래 요소와의 간격 */}
-      {/* flex gap-2: 요소 간격 조정 */}
-      <div className="mb-6 flex gap-2">
-        {/* rounded-md: 둥근 모서리 */}
-        {/* bg-blue-500: 버튼 배경색 */}
-        {/* px-4: 좌우 패딩 */}
-        {/* py-2: 상하 패딩 */}
-        {/* text-white: 텍스트 색상 */}
-        <button className="rounded-md bg-blue-500 px-4 py-2 text-white">
-          전체
-        </button>
-        {/* rounded-md: 둥근 모서리 */}
-        {/* bg-gray-200: 버튼 배경색 */}
-        {/* px-4: 좌우 패딩 */}
-        {/* py-2: 상하 패딩 */}
-        <button className="rounded-md bg-gray-200 px-4 py-2">의류</button>
-        <button className="rounded-md bg-gray-200 px-4 py-2">신발</button>
-        <button className="rounded-md bg-gray-200 px-4 py-2">가방</button>
-        <button className="rounded-md bg-gray-200 px-4 py-2">액세서리</button>
-      </div>
-
-      {/* 상품 그리드 */}
-      {/* grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4: 그리드 레이아웃 설정 */}
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-        {products.map(product => (
-          <div
-            key={product.id}
-            // overflow-hidden: 요소 오버플로우 숨김
-            // rounded-lg: 둥근 모서리
-            // border: 테두리
-            // transition-shadow: 그림자 효과 전환
-            // hover:shadow-md: 마우스 오버 시 그림자 효과 추가
-            // duration-300: 300밀리초 동안 전환
-            className="overflow-hidden rounded-lg border transition-shadow hover:shadow-md duration-300"
-          >
-            <Link href={`/products/${product.id}`}>
-              {/* aspect-square: 정사각형 비율 */}
-              <div className="aspect-square">
-                <Image
-                  src={product.imageUrl}
-                  alt={product.name}
-                  // h-full: 높이 100%
-                  // w-full: 너비 100%
-                  // object-cover: 이미지 비율 유지
-                  className="h-full w-full object-cover"
-                  width={300}
-                  height={300}
-                />
-              </div>
-
-              {/* p-4: 패딩 */}
-              <div className="p-4">
-                {/* text-sm: 텍스트 크기 */}
-                {/* text-gray-500: 텍스트 색상 */}
-                <span className="text-sm text-gray-500">
-                  {product.category}
-                </span>
-                {/* mb-1: 아래 요소와의 간격 */}
-                {/* truncate: 텍스트 자르기 */}
-                {/* font-medium: 폰트 굵기 */}
-                <h3 className="mb-1 truncate font-medium">{product.name}</h3>
-                <p className="font-bold">{product.price.toLocaleString()}원</p>
-              </div>
-            </Link>
+          {/* min-w-0이 없으면 자식 요소의 truncate 적용이 안됨 */}
+          <div className="min-w-0">
+            {/* text-sm/6: 텍스트 크기 및 높이 비율 */}
+            {/* font-semibold: 텍스트 굵게 */}
+            {/* text-gray-900: 텍스트 색상 */}
+            <p className="text-sm/6 font-semibold text-gray-900">
+              Michael Foster
+            </p>
+            {/* mt-1: 텍스트 위 여백 */}
+            {/* truncate: 텍스트 자르기 */}
+            {/* text-xs/5: 텍스트 크기 및 높이 비율 */}
+            {/* text-gray-500: 텍스트 색상 */}
+            <p className="mt-1 truncate text-xs/5 text-gray-500">
+              michael.foster@example.com
+            </p>
           </div>
-        ))}
-      </div>
-    </section>
+        </div>
+        {/* 회사 및 직책 */}
+        {/* hidden: 화면 크기에 따라 요소 숨김 */}
+        {/* shrink-0: 요소 크기 줄이지 않기 */}
+        {/* sm:flex: 화면 크기가 sm 이상일 때 요소 표시 */}
+        {/* sm:flex-col: 화면 크기가 sm 이상일 때 요소 세로 배치 */}
+        {/* sm:items-end: 요소 오른쪽 정렬 */}
+        <div className="hidden sm:flex sm:flex-col sm:items-end">
+          <p className="text-sm/6 text-gray-900">Co-Founder / CTO</p>
+          <p className="mt-1 text-xs/5 text-gray-500">
+            Last seen <time dateTime="2023-01-23T13:23Z">3h ago</time>
+          </p>
+        </div>
+      </li>
+      <li className="flex justify-between py-5">
+        <div className="flex min-w-0 gap-x-4">
+          <img
+            className="size-12 rounded-full"
+            src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+            alt=""
+          />
+          <div className="min-w-0 flex-auto">
+            <p className="text-sm/6 font-semibold text-gray-900">
+              Dries Vincent
+            </p>
+            <p className="mt-1 truncate text-xs/5 text-gray-500">
+              dries.vincent@example.com
+            </p>
+          </div>
+        </div>
+        <div className="hidden sm:flex sm:flex-col sm:items-end">
+          <p className="text-sm/6 text-gray-900">Business Relations</p>
+          {/* 온라인 상태 표시 */}
+          <div className="mt-1 flex items-center gap-x-1.5">
+            {/* rounded-full: 모서리 둥글게 */}
+            {/* bg-emerald-500/20: 불투명도 20% 배경색 */}
+            <div className="rounded-full bg-emerald-500/20 p-1">
+              {/* size-1.5: 크기 */}
+              {/* rounded-full: 모서리 둥글게 */}
+              {/* bg-emerald-500: 색상 */}
+              <div className="size-1.5 rounded-full bg-emerald-500"></div>
+            </div>
+            <p className="text-xs/5 text-gray-500">Online</p>
+          </div>
+        </div>
+      </li>
+    </ul>
   );
 }

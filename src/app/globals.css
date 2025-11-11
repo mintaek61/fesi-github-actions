@@ -1,16 +1,29 @@
-@import "tailwindcss";
+/* @import "tailwindcss"; */
 
-@theme {
-  /* 주요 색상 */
-  --color-flow-blue: #0052cc;
-  --color-flow-purple: #6554c0;
+/* css */
 
-  /* 보조 색상 */
-  --color-flow-teal: #36b37e;
+.card-container {
+  height: 100vh;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
 
-  /* 강조 색상 */
-  --color-flow-orange: #ff5630;
+.card {
+  border: 1px solid black;
+  background-color: rgb(102, 205, 170);
+  color: white;
+  width: 200px;
+  height: 150px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease-in-out 0.3s;
+}
 
-  /* 회사 폰트 */
-  --font-noto-sans-kr: "Noto Sans KR", sans-serif;
+.card:hover {
+  transform: scale(1.5);
+  background-color: rgb(102, 205, 170, 0.5);
 }

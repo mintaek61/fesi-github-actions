@@ -1,13 +1,14 @@
-import * as motion from "motion/react-client";
+// app/page.tsx
 
-export default function Home() {
+import Link from "next/link";
+
+export default function Page() {
   return (
-    <motion.button
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.9 }}
-      className="rounded-md border-none bg-blue-500 px-5 py-2.5 text-white"
-    >
-      마우스를 올려보세요!
-    </motion.button>
+    <div>
+      <Link className="text-blue-500 underline" href="/about">
+        About으로
+      </Link>
+      {/* 코드 생략*/}
+    </div>
   );
 }

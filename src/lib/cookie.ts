@@ -68,6 +68,7 @@ export function isCookieExists(name: string): boolean {
     : false;
 }
 
+// 1번 문제 (위에 코드는 노션 참고 )
 export function deleteCookie(name: string) {
   document.cookie = encodeURIComponent(name) + "=; Max-age=0";
 }
@@ -78,6 +79,8 @@ function getCookie(name: string): string | undefined {
   const cookie = cookies.find(cookie => cookie.startsWith(encodedName + "="));
 
   if (!cookie) return undefined;
+
+  return decodeURIComponent(cookie.split("=")[1]);
 }
 
 document.cookie =

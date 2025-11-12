@@ -1,106 +1,72 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import * as m from "motion/react-m";
+import { deleteCookie, isCookieExists, setCookie } from "@/lib/cookie";
+import { useEffect, useState } from "react";
 
-export const AnimatedProgressBar = ({ maxValue = 100, height = 12 }) => {
-  // API 응답으로 받을 값을 저장할 상태
-  const [value, setValue] = useState(0);
-  // API 로딩 상태 관리
-  const [isLoading, setIsLoading] = useState(true);
+export default function Home() {
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    // API 호출을 시뮬레이션 (실제로는 여기서 API 요청을 수행)
-    const fetchData = async () => {
-      setIsLoading(true);
-      try {
-        // 실제 API 호출 예시:
-        // const response = await fetch('your-api-endpoint');
-        // const data = await response.json();
-        // setValue(data.progressValue);
+    // 1. 현재 isModalHidden 쿠키가 존재하는지 확인하세요.
+    // 여기에 코드를 작성하세요.
+    // 2. 쿠키가 없으면 모달을 표시하세요.
+    // 여기에 코드를 작성하세요.
+    const isModalHidden = isCookieExists("isModalHidden");
+    if (!isModalHidden) {
+      setShowModal(true);
+    }
+  }, []);
 
-        // API 호출 시뮬레이션 (0.5초 ~ 2초 사이 지연)
-        await new Promise(resolve =>
-          setTimeout(resolve, 500 + Math.random() * 1500),
-        );
+  const handleModalCheckboxChange = () => {
+    // 3. 쿠키가 존재하면 쿠키를 삭제하세요.
+    // 여기에 코드를 작성하세요.
+    // 4. 쿠키가 존재하지 않으면 24시간 후 만료되는 쿠키를 설정하세요.
+    // 아래에 코드를 작성하세요.
+    if (isCookieExists("isModalHidden")) {
+      deleteCookie("isModalHidden");
+    } else {
+      // 24시간 후
+      const date = new Date();
+      date.setTime(date.getTime() + 24 * 60 * 60 * 1000);
+      setCookie("isModalHidden", "true", { expires: date, path: "/" });
+    }
+  };
 
-        // 랜덤 값으로 시뮬레이션 (실제로는 API 응답 데이터를 사용)
-        const randomValue = Math.floor(Math.random() * 101); // 0 ~ 100 사이 랜덤 값;
-        setValue(randomValue);
-      } catch (error) {
-        console.error("데이터를 가져오는 중 오류 발생:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []); // 컴포넌트 마운트 시 한 번만 실행
-
-  // 퍼센트로 변환
-  const percentage = (value / maxValue) * 100;
+  const handleClose = () => {
+    setShowModal(false);
+  };
 
   return (
-    <div className="w-full">
-      {/* 프로그레스바 컨테이너 */}
-      <div
-        className="w-full overflow-hidden rounded-full bg-gray-200"
-        style={{ height: `${height}px` }}
-      >
-        {!isLoading && (
-          <m.div
-            className="h-full bg-blue-500"
-            initial={{ width: 0 }}
-            animate={{ width: `${percentage}%` }}
-            transition={{ duration: 1.5, ease: "easeOut" }}
-          />
-        )}
-      </div>
+    <div className="flex h-screen w-screen items-center justify-center">
+      메인 화면
+      {showModal && (
+        <div className="bg-opacity-50 fixed inset-0 flex items-center justify-center bg-black/50">
+          <div className="rounded-lg bg-white p-6 shadow-lg">
+            <h2 className="mb-4 text-xl font-bold">안내</h2>
+            <p className="mb-4">환영합니다! 이것은 모달창입니다.</p>
+            <div className="flex justify-end gap-2">
+              <label
+                htmlFor="modalCheckbox"
+                className="flex items-center gap-2"
+              >
+                <input
+                  type="checkbox"
+                  id="modalCheckbox"
+                  onChange={handleModalCheckboxChange}
+                />
+                오늘 하루 보지 않기
+              </label>
 
-      {/* 로딩 및 값 표시 */}
-      <div className="mt-2 text-right text-sm">
-        {isLoading ? (
-          <div className="animate-pulse text-gray-500">데이터 로딩 중...</div>
-        ) : (
-          <m.div
-            className="font-medium text-blue-600"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            {value} / {maxValue} ({percentage.toFixed(1)}%)
-          </m.div>
-        )}
-      </div>
+              <button
+                onClick={handleClose}
+                className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+              >
+                닫기
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
-};
-
-// 여러 프로그레스바를 동시에 보여주는 예제 컴포넌트
-const ProgressBarExample = () => {
-  return (
-    <div className="mx-auto max-w-xl space-y-8 p-6">
-      <h2 className="mb-4 text-xl font-bold">
-        API 데이터로 애니메이션되는 프로그레스바
-      </h2>
-
-      <div className="space-y-6">
-        <div>
-          <h3 className="mb-2 text-lg font-medium">사용자 진행도</h3>
-          <AnimatedProgressBar maxValue={100} height={12} />
-        </div>
-
-        <div>
-          <h3 className="mb-2 text-lg font-medium">다운로드 상태</h3>
-          <AnimatedProgressBar maxValue={100} height={8} />
-        </div>
-
-        <div>
-          <h3 className="mb-2 text-lg font-medium">시스템 리소스</h3>
-          <AnimatedProgressBar maxValue={100} height={16} />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default ProgressBarExample;
+}

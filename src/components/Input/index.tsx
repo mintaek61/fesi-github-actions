@@ -11,6 +11,8 @@ interface InputProps {
   defaultValue?: string;
   type?: "text" | "password" | "email" | "number"; // 필요한 타입을 추가할 수 있습니다.
   placeholder?: string;
+  isError?: boolean;
+  errorMessage?: string;
   // 추가적인 props가 필요하다면 여기에 정의할 수 있습니다.
 }
 export const Input = ({
@@ -19,6 +21,8 @@ export const Input = ({
   defaultValue = "",
   type = "text",
   placeholder,
+  isError = false,
+  errorMessage,
 }: InputProps) => {
   const [value, setValue] = useState(defaultValue);
   return (
@@ -41,6 +45,9 @@ export const Input = ({
         >
           <DeleteIconButton />
         </button>
+      )}
+      {isError && (
+        <span className="mt-1 text-sm text-red-500">{errorMessage}</span>
       )}
     </div>
   );
